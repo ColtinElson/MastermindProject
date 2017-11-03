@@ -1,1 +1,1 @@
-Repo for Sprint 1 (design phase)
+Dir for Sprint 1 (design phase)
