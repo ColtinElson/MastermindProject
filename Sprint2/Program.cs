@@ -8,8 +8,8 @@ namespace ProjectManagement
 {
     class AI
     {
-        
-          
+
+
         
 
         public static int[] generateCode()
@@ -20,7 +20,7 @@ namespace ProjectManagement
             for (int i = 0; i < codeValue.Length; i++)
             {
 
-                codeValue[i] = rnd.Next(1, 6);
+                codeValue[i] = rnd.Next(1, 7);
 
             }
             return codeValue;
@@ -28,23 +28,52 @@ namespace ProjectManagement
 
         }
         public static string[] checkCode(int[] aiCode, int[] playerCode)
+
         {
-            string[] guessAnswer = new string[4];
-            for (int i = 0; i < aiCode.Length; i++)
-                if (aiCode[i] == playerCode[i])
+            
+
+            int[] colors = new int[7];
+            for (int i = 0; i < colors.Length; i++)
             {
-                guessAnswer[i] = "black";
-            }
-            else if(aiCode.Contains(playerCode[i]) == true)
-                {
-                guessAnswer[i] = "white";
+               colors[i]=0;
+
 
             }
-            else
+            for (int i = 0; i < aiCode.Length; i++)
+            {
+                colors[(aiCode[i])]++;
+
+                
+            }
+
+            string[] guessAnswer = new string[4];
+            for (int i = 0; i < aiCode.Length; i++)
+            { 
+                if (aiCode[i] == playerCode[i])
                 {
-                    guessAnswer[i] = "blank";
+                guessAnswer[i] = "black";
+                    
+                    
+                    colors[aiCode[i] ]--;
                 }
-            
+                
+                
+
+            }
+            for (int i = 0; i < aiCode.Length; i++)
+            {
+                if (aiCode.Contains(playerCode[i]) == true && colors[playerCode[i]] > 0 && guessAnswer[i] !="black" )
+                
+                {
+                    guessAnswer[i] = "white";
+                    colors[playerCode[i]]--;
+                }
+                else if(guessAnswer[i] != "black")
+                {
+                    guessAnswer[i] = "empty";
+                }
+
+            }
 
 
 
@@ -53,9 +82,14 @@ namespace ProjectManagement
     }
     class Program
     {
+        
+        
         static void Main(string[] args)
 
+
         {
+            
+
             int[] playerCodeValue = new int[4];
             string[] playerCodeValueString = new string[4];
             
@@ -66,11 +100,13 @@ namespace ProjectManagement
             Console.WriteLine(AICode[0].ToString()+ AICode[1].ToString() + AICode[2].ToString() + AICode[3].ToString());
             for (int i = 0; i < playerCodeValueString.Length; i++)
             {
-                Console.WriteLine("enter test number" + i+1);
+                Console.WriteLine("enter number " + (i+1));
                 playerCodeValueString[i] = Console.ReadLine();
                 
                 
             }
+            
+
             
             Console.WriteLine(playerCodeValueString[0] + playerCodeValueString[1] + playerCodeValueString[2] + playerCodeValueString[3]);
             for (int i = 0; i < playerCodeValue.Length; i++)
